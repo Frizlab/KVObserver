@@ -50,7 +50,7 @@ public final class KVObserver : NSObject {
 		/**
 		 Sync dispatch on given context.
 		 
-		 - Note: If you're observing a Core Data object and you want synchronous dispatch,
+		 - Note: If you’re observing a Core Data object and you want synchronous dispatch,
 		  there’s no need to use this mode as a simple `.direct` dispatch will be enough
 		  (and you’ll be guaranteed to be on the context as the properties of the object can only change on said context). */
 		case coreDataSync(NSManagedObjectContext)
@@ -223,7 +223,7 @@ public final class KVObserver : NSObject {
 		
 		private let inferredContext: NSManagedObjectContext?
 		
-		/* An enum would be more beautiful, wouldn't you say?
+		/* An enum would be more beautiful than these two mutually exclusive properties, wouldn’t you say?
 		 * But we cannot store (beautifully) a weak reference in an enum ;) */
 		private let observedObjectPtr: UnsafeMutableRawPointer?
 		private weak var observedObjectWeak: NSObject?

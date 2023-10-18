@@ -51,7 +51,7 @@ struct CoreDataStack {
 
 /* In this class (an NSManagedObject subclass), we do KVO of self.
  * This a non-trivial thing to do, and MUST be done following very specific guidelines.
- * However, because we're in a unit test and I don't know how to otherwise, I did NOT follow all the rules to do the KVO.
+ * However, because we’re in a unit test and I don’t know how to otherwise, I did NOT follow all the rules to do the KVO.
  * DO **NOT** use this class as an example for KVO in an NSManagedObject! */
 @objc(AutoObservedNSManagedObject)
 class AutoObservedNSManagedObject : NSManagedObject {
@@ -64,9 +64,9 @@ class AutoObservedNSManagedObject : NSManagedObject {
 	
 	public override func awakeFromFetch() {
 		/* This is also called when a fault is fulfilled (fulfilling a fault is a fetch).
-		 * Always DO call super's implementation *first*.
+		 * Always DO call super’s implementation *first*.
 		 *
-		 * Context's changes processing is disabled in this method.
+		 * Context’s changes processing is disabled in this method.
 		 * However, this means inverse relationship are not set automatically when relationships are modified in this method. */
 		super.awakeFromFetch()
 		print("Awake from fetch for an AutoObservedNSManagedObject with observer \(Unmanaged.passUnretained(kvObserver).toOpaque())")
@@ -78,7 +78,7 @@ class AutoObservedNSManagedObject : NSManagedObject {
 	
 	public override func awakeFromInsert() {
 		/* Use primitive accessors to change properties values in this method.
-		 * Always DO call super's implementation first. */
+		 * Always DO call super’s implementation first. */
 		super.awakeFromInsert()
 		print("Awake from insert for an AutoObservedNSManagedObject with observer \(Unmanaged.passUnretained(kvObserver).toOpaque())")
 		
@@ -100,7 +100,7 @@ class AutoObservedNSManagedObject : NSManagedObject {
 		print("Deinit of an AutoObservedNSManagedObject with observer \(Unmanaged.passUnretained(kvObserver).toOpaque())")
 		/* There is nothing to do in deinit when observing an NSManagedObject the correct way.
 		 * However, for the test case we want to do, the observation deregistering must be done here
-		 *  (it is where it happens in practice in the specific case we're interested in). */
+		 *  (it is where it happens in practice in the specific case we’re interested in). */
 		if let id = observingId {kvObserver.stopObserving(id: id)}
 		observingId = nil
 		
